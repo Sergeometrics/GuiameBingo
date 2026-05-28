@@ -1,0 +1,153 @@
+/* ============================================
+   Bingo de Multiplicación - Estilos
+   ============================================ */
+
+/* Estilos base de los cartones */
+.bingo-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.bingo-card-page {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 1rem;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+}
+
+/* ============================================
+   ESTILOS DE IMPRESIÓN
+   ============================================ */
+
+@media print {
+  /* Ocultar elementos de navegación e interfaz */
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* Resetear fondos y colores para ahorrar tinta */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  body {
+    background: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Layout de cartones para impresión: 2 por página */
+  .bingo-cards-grid {
+    display: block !important;
+    gap: 0 !important;
+  }
+
+  .bingo-card-page {
+    width: 48% !important;
+    max-width: none !important;
+    display: inline-block !important;
+    vertical-align: top !important;
+    margin: 0 1% 0.5cm 1% !important;
+    padding: 0.4cm !important;
+    border: 2px solid #000 !important;
+    border-radius: 0 !important;
+    page-break-inside: avoid !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Forzar salto de página cada 2 cartones (cada fila) */
+  .bingo-cards-grid::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  /* Ajustes de tipografía para impresión */
+  .bingo-card-page h2 {
+    font-size: 11pt !important;
+    margin-bottom: 2pt !important;
+  }
+
+  .bingo-card-page .text-xs {
+    font-size: 7pt !important;
+  }
+
+  .bingo-card-page .text-lg {
+    font-size: 14pt !important;
+  }
+
+  .bingo-card-page .text-xl {
+    font-size: 16pt !important;
+  }
+
+  /* Asegurar que las celdas del bingo tengan buen tamaño */
+  .bingo-card-page .aspect-square {
+    min-height: 0.9cm !important;
+  }
+
+  /* Ocultar el contenedor del grid principal que agrega padding */
+  .max-w-7xl {
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Ajustes de márgenes de página */
+  @page {
+    size: letter;
+    margin: 1cm;
+  }
+}
+
+/* ============================================
+   Pantallas medianas y grandes
+   ============================================ */
+
+@media screen and (min-width: 768px) {
+  .bingo-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .bingo-card-page {
+    max-width: none;
+    margin: 0;
+  }
+}
+
+/* ============================================
+   Animaciones
+   ============================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* ============================================
+   Utilidades
+   ============================================ */
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
