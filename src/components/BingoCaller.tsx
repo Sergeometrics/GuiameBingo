@@ -81,10 +81,7 @@ export default function BingoCaller() {
                     </p>
                   </div>
 
-                  {/* Respuesta (oculta inicialmente o mostrada) */}
-                  <p className="text-lg text-gray-400">
-                    Producto: {bingo.currentCall.number}
-                  </p>
+
                 </div>
               ) : (
                 <div className="text-center py-12">

@@ -63,20 +63,23 @@ export interface BingoCard {
 export function generateBingoCard(id: number): BingoCard {
   const grid: (number | "FREE")[][] = [];
 
-  for (let row = 0; row < 5; row++) {
-    const cardRow: (number | "FREE")[] = [];
-    for (let col = 0; col < 5; col++) {
+  for (let col = 0; col < 5; col++) {
+    const columnNumbers = [...BINGO_COLUMNS[col].numbers];
+    // Shuffle and pick 4 numbers (5th row is FREE center, or regular number for other columns)
+    const shuffled = columnNumbers.sort(() => Math.random() - 0.5);
+    const columnSelection = shuffled.slice(0, 5);
+    
+    // Place numbers in this column's rows
+    for (let row = 0; row < 5; row++) {
       if (row === 2 && col === 2) {
-        cardRow.push("FREE");
+        // Center cell is always FREE
+        if (!grid[row]) grid[row] = [];
+        grid[row][col] = "FREE";
       } else {
-        const columnNumbers = [...BINGO_COLUMNS[col].numbers];
-        // Seleccionar 5 números únicos de esta columna para el cartón
-        // Usamos una selección aleatoria sin reemplazo
-        const shuffled = columnNumbers.sort(() => Math.random() - 0.5);
-        cardRow.push(shuffled[row]);
+        if (!grid[row]) grid[row] = [];
+        grid[row][col] = columnSelection[row];
       }
     }
-    grid.push(cardRow);
   }
 
   return { id, grid };
